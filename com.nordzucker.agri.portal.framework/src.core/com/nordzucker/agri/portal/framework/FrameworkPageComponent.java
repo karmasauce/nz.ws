@@ -12,13 +12,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
-import com.nordzucker.agri.portal.framework.utils.NavNode;
 import com.sap.portal.desktop.IDesktopService;
 import com.sap.security.api.IUserMaint;
 import com.sap.security.api.UMException;
 import com.sap.security.api.UMFactory;
-import com.sapportals.portal.navigation.INavigationNode;
-import com.sapportals.portal.navigation.NavigationEventsHelperService;
 import com.sapportals.portal.prt.component.AbstractPortalComponent;
 import com.sapportals.portal.prt.component.IPortalComponentContext;
 import com.sapportals.portal.prt.component.IPortalComponentRequest;
