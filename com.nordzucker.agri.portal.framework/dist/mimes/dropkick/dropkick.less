@@ -1,0 +1,247 @@
+#bpselect_text {
+	background-color: rgb(139, 188, 7);
+	color: #ffffff;
+	border: 1px solid rgb(159, 208, 27);
+}
+#bpselect_text:focus {
+	outline: 0;
+}
+
+
+#meta .bpselect_container {
+	text-align: left;
+	display: inline-block;
+	height: 30px;
+  vertical-align: top;
+}
+
+#meta .bpselect_container ul {
+	height: auto;
+}
+
+#meta .bpselect_container a {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+#meta .bpselect_label {
+	line-height: 30px;
+  padding-left: 10px;
+  display: none;
+}
+
+
+
+
+
+/**
+ * Default DropKick theme
+ *
+ * Feel free to edit the default theme
+ * or even add your own.
+ *
+ * See the readme for themeing help
+ *
+ */
+
+/***** Begin Theme, feel free to edit in here! ******/
+
+/* One container to bind them... */
+#meta .bpselect_container .dk_container {
+  /*background-color: rgb(139, 188, 7);*/
+  // font-family: 'Helvetica', Arial, sans-serif;
+  // font-weight: 700;
+  // line-height: 14px;
+  // margin-bottom: 18px;
+}
+  #meta .bpselect_container .dk_container:focus {
+    outline: 0;
+  }
+  #meta .bpselect_container .dk_container a {
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+/* Opens the dropdown and holds the menu label */
+#meta .bpselect_container .dk_toggle {
+  /**
+   * Help: Arrow image not appearing
+   * Try updating this property to your correct dk_arrows.png path
+   */
+
+  position: relative;
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+    height: 30px;
+    background-image: url('dropkick/bg-arrow.png');
+    background-repeat: no-repeat;
+    background-position: 100% center;
+    background-size: 20px 30px;
+  }
+  // width: 76px;
+  /*margin-right: 7px;*/
+  color: #fff;
+  padding: 0 20px 0 7px;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+  height: 30px;
+  line-height: 30px;
+}
+  #meta .bpselect_container .dk_toggle:hover {
+    // border-color: rgb(139, 188, 7);
+    // background-size: auto;
+  }
+  /* Applied when the dropdown is focused */
+  #meta .bpselect_container .dk_focus .dk_toggle {
+  }
+
+/* Applied whenever the dropdown is open */
+#meta .bpselect_container .dk_open {
+  
+  /**
+   * Help: Dropdown menu is covered by something
+   * Try setting this value higher
+   */
+  z-index: 10;
+}
+  #meta .bpselect_container .dk_open .dk_toggle {
+    // background-color: rgb(139, 188, 7);
+    color: #fff;
+  }
+
+/* The outer container of the options */
+#meta .bpselect_container .dk_options {
+}
+
+#meta .bpselect_container .dk_options ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+  position: relative;
+  top: 1px;
+  width: 76px;
+}
+
+#meta .bpselect_container .dk_options ul li {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+}
+
+#meta .bpselect_container .dk_options ul li:hover {
+	background: none;
+}
+#meta .bpselect_container .dk_options a {
+	color: #fff;
+  padding: 0 7px;
+  width: 100%;
+}
+#meta .bpselect_container .dk_options li:last-child a {
+    border-bottom: none;
+}
+#meta .bpselect_container .dk_options a:hover,
+#meta .bpselect_container .dk_option_current a {
+  display: block;
+	// width: 76px;
+  color: #fff;
+  text-decoration: none;
+}
+  
+#meta .bpselect_container .dk_option_current {
+  // width: 76px;
+}
+
+/* Inner container for options, this is what makes the scrollbar possible. */
+#meta .bpselect_container .dk_options_inner {
+  color: #333;
+  max-height: 250px;
+}
+
+/* Set a max-height on the options inner */
+#meta .bpselect_container .dk_options_inner,
+#meta .bpselect_container .dk_touch .dk_options {
+  max-height: 250px;
+}
+
+/******  End Theme ******/
+
+/***** Critical to the continued enjoyment of working dropdowns ******/
+
+#meta .bpselect_container .dk_container {
+  display: none;
+  float: left;
+  position: relative;
+}
+  #meta .bpselect_container .dk_container a {
+    outline: 0;
+  }
+
+#meta .bpselect_container .dk_toggle {
+  display: -moz-inline-stack;
+  display: inline-block;
+  *display: inline;
+  position: relative;
+  zoom: 1;
+}
+
+#meta .bpselect_container .dk_open {
+  position: relative;
+}
+  #meta .bpselect_container .dk_open .dk_options {
+    display: block;
+  }
+  #meta .bpselect_container .dk_open .dk_label {
+    color: inherit;
+  }
+
+#meta .bpselect_container .dk_options {
+  background-color: rgb(139, 188, 7);
+  display: none;
+  margin-top: 1px;
+  position: absolute;
+  // right: 0;
+  // width: 90px;
+  left: 0;
+  // box-shadow: 0 0 3px rgba(0,0,0,.75)
+}
+  #meta .bpselect_container .dk_options a,
+  #meta .bpselect_container .dk_options a:link,
+  #meta .bpselect_container .dk_options a:visited {
+    // display: block;
+	// background-color: rgb(139, 188, 7);
+	  color: #fff;
+    box-sizing: border-box;
+  }
+  #meta .bpselect_container .dk_options a:hover {
+    background-color: rgb(129, 178, 0);
+  }
+  #meta .bpselect_container .dk_options_inner {
+    overflow: none;
+    position: relative;
+  }
+
+#meta .bpselect_container .dk_touch .dk_options {
+  overflow: hidden;
+}
+
+#meta .bpselect_container .dk_touch .dk_options_inner {
+  max-height: none;
+  overflow: visible;
+}
+
+#meta .bpselect_container select {
+  position: relative;
+  top: -99999em;
+  visibility: hidden;
+}
+
+/***** End Critical to the continued enjoyment of working dropdowns ******/

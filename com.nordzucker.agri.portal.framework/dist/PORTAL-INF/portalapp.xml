@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<application alias="nz">
+  <application-config>
+    <property name="Vendor" value="sap.com"/>
+    <property name="SecurityArea" value="NetWeaver.Portal"/>
+    <!-- property name="SharingReference" value="opentext.com~otpsmcoreps,opentext.com~otseaps"/ -->
+    <property name="PrivateSharingReference" value="com.sap.portal.search.service,com.sap.portal.pagebuilder,com.sap.portal.navigation.AliasService,com.sap.portal.navigation.navigationtaglibrary,knowledgemanagement,SAPJ2EE::library:com.sap.portal.common"/><!-- com.sap.portal.webresourceservice, -->
+  </application-config>
+  <components>
+  
+  
+  
+    <component name="layout">
+      <component-config>
+        <property name="ClassName" value="com.nordzucker.agri.portal.framework.FrameworkLayoutComponent"/>
+        <property name="ResourceBundleName" value="framework"/>
+        <property name="SafetyLevel" value="no_safety"/>
+      </component-config>
+      <component-profile>
+        <property name="Title" value="Framework Layout"/>
+        <property name="ComponentType" value="com.sapportals.portal.layout"/>
+        <property name="com.sap.portal.pcm.Category" value="platform">
+          <property name="inheritance" value="final"/>
+        </property>
+        <property name="NavigationTagLibrary" value="/SERVICE/com.sap.portal.navigation.navigationtaglibrary/taglib/TagLibrary.tld"/>
+        <property name="FrameworkTagLibrary" value="/SERVICE/com.sap.portal.pagebuilder/taglib/framework.tld"/>
+        <property name="LayoutTagLibrary" value="/SERVICE/com.sap.portal.pagebuilder/taglib/layout.tld"/>
+        <property name="com.sap.portal.reserved.layout.TemplateFile" value="FrameworkPageLayout.jsp"/>
+        <property name="com.sap.portal.reserved.layout.Cont1" value="content">
+          <property name="title" value="Content"/>
+          <property name="orientation" value="vertical"/>
+        </property>
+        <property name="AuthScheme" value="anonymous"/>
+        <property name="EPCFLevel" value="0"/>
+        <property name="SupportedUserAgents" value="(*,*,*)">
+          <property name="validvalues" value="7/(*,*,*)"/>
+        </property>
+        <property name="com.nordzucker.agri.portal.framework.WindowTitle" value="Nordzucker">
+          <property name="category" value="Nordzucker"/>
+          <property name="plainDescription" value="Title in Browser Window"/>
+          <property name="longDescription" value="The title that is shown behind the page title in the window's title bar."/>
+        </property>
+        <property name="com.nordzucker.agri.portal.framework.BaseRID" value="/documents/nz_agri">
+          <property name="category" value="Nordzucker"/>
+          <property name="plainDescription" value="HTML Base RID"/>
+   	  	  <property name="longDescription" value="The resource ID (= RID) of the folder in KM that holds further HTML resources."/>
+        </property>
+        <property name="com.nordzucker.agri.portal.framework.RSSURL" value="/cps/rde/xchg/agriportal/hs.xsl/nz_news.rss?rdeLocaleAttr=#LANG#">
+          <property name="category" value="Nordzucker"/>
+          <property name="plainDescription" value="RSS URL"/>
+   	  	  <property name="longDescription" value="The URL to the RSS feed provided by PSM. The language of the current request locale is attached. The placehoder #LANG# is dynamically replaced with the request's language."/>
+        </property>
+        <property name="com.nordzucker.agri.portal.framework.UpdateAOBUserURL" value="/cps/rde/xchg/agriportal/aob_user.xml?rdeLocaleAttr=#LANG#&amp;aob_user=#USER#">
+          <property name="category" value="Nordzucker"/>
+          <property name="plainDescription" value="Update AOB User URL"/>
+   	  	  <property name="longDescription" value="The URL that is called to update the access-on-behalf user for PSM. The placehoder #LANG# is dynamically replaced with the request's language. #USER# is replaced when the user selects a business partner."/>
+        </property>1234
+        <property name="com.nordzucker.agri.portal.framework.search.DynamicParameter" value="/generic_smartview?paraconfig=OT-DS-Server_agriportal&amp;paraurl=http%3A%2F%2Fgut210142.nordzucker.lan%3A8080%2Fcps%2Frde%2Fxchg%2Fagriportal%2Fhs.xsl%2F">
+          <property name="category" value="Nordzucker"/>
+          <property name="plainDescription" value="Search: Path and parameters used for PSM"/>
+   	  	  <property name="longDescription" value="The path and parameters used for launching a PSM SmartView. It contains a paraurl and paraconfig parameter. Important: the name of the .htm file will be attached to this string."/>
+        </property>
+      </component-profile>
+    </component>
+    
+    
+    
+    <component name="iview">
+      <component-config>
+        <property name="ClassName" value="com.nordzucker.agri.portal.framework.FrameworkPageComponent"/>
+        <property name="SafetyLevel" value="no_safety"/>
+        <property name="ResourceBundleName" value="framework"/>
+      </component-config>
+      <component-profile>
+        <property name="Title" value="Framework Component"/>
+        <property name="NavigationTagLibrary" value="/SERVICE/com.sap.portal.navigation.navigationtaglibrary/taglib/TagLibrary.tld"/>
+        <property name="FrameworkTagLibrary" value="/SERVICE/com.sap.portal.pagebuilder/taglib/framework.tld"/>
+        <property name="com.sap.portal.iview.ShowTray" value="false"/>
+        <property name="AuthScheme" value="anonymous"/>
+        <property name="EPCFLevel" value="0"/>
+        <property name="SupportedUserAgents" value="(*,*,*)">
+          <property name="validvalues" value="7/(*,*,*)"/>
+        </property>
+      </component-profile>
+    </component>
+  
+  
+  
+    <component name="content_layout">
+      <component-config>
+        <property name="ClassName" value="com.sapportals.portal.pb.layout.PageLayout"/>
+        <property name="ResourceBundleName" value="pagebuilder_nls"/>
+        <property name="SafetyLevel" value="no_safety"/>
+      </component-config>
+      <component-profile>
+        <property name="Title" value="Framework Content Layout"/>
+        <property name="ComponentType" value="com.sapportals.portal.layout"/>
+        <property name="com.sap.portal.pcm.Category" value="platform">
+          <property name="inheritance" value="final"/>
+        </property>
+        <property name="LayoutTagLibrary" value="/SERVICE/com.sap.portal.pagebuilder/taglib/layout.tld"/>
+        <property name="com.sap.portal.reserved.layout.TemplateFile" value="FrameworkContentLayout.jsp"/>
+        <property name="com.sap.portal.reserved.layout.Cont1" value="content">
+          <property name="title" value="Content"/>
+          <property name="orientation" value="vertical"/>
+        </property>
+        <property name="AuthScheme" value="anonymous"/>
+        <property name="EPCFLevel" value="0"/>
+        <property name="SupportedUserAgents" value="(*,*,*)">
+          <property name="validvalues" value="7/(*,*,*)"/>
+        </property>
+      </component-profile>
+    </component>
+    
+    
+    
+    <component name="epcm_shim">
+      <component-config>
+        <property name="ClassName" value="com.nordzucker.agri.portal.framework.EPCMShimComponent"/>
+        <property name="SafetyLevel" value="no_safety"/>
+      </component-config>
+      <component-profile>
+        <property name="Title" value="EPCM Shim"/>
+        <property name="EPCFLevel" value="1"/>
+        <property name="AuthScheme" value="anonymous"/>
+        <property name="SupportedUserAgents" value="(*,*,*)">
+          <property name="validvalues" value="7/(*,*,*)"/>
+        </property>
+      </component-profile>
+    </component>
+    
+    
+    
+    <component name="login">
+      <component-config>
+        <property name="ClassName" value="com.nordzucker.agri.portal.framework.LoginComponent"/>
+        <property name="SafetyLevel" value="no_safety"/>
+      </component-config>
+      <component-profile>
+        <property name="Title" value="Login"/>
+        <property name="EPCFLevel" value="0"/>
+        <property name="AuthScheme" value="default"/>
+        <property name="SupportedUserAgents" value="(*,*,*)">
+          <property name="validvalues" value="7/(*,*,*)"/>
+        </property>
+      </component-profile>
+    </component>
+    
+    
+    
+    <component name="login_html5">
+      <component-config>
+        <property name="ClassName" value="com.nordzucker.agri.portal.framework.LoginHtml5Component"/>
+        <property name="SafetyLevel" value="no_safety"/>
+      </component-config>
+      <component-profile>
+        <property name="Title" value="Test"/>
+        <property name="EPCFLevel" value="0"/>
+        <property name="AuthScheme" value="anonymous"/>
+        <property name="SupportedUserAgents" value="(*,*,*)">
+          <property name="validvalues" value="7/(*,*,*)"/>
+        </property>
+      </component-profile>
+    </component>
+    
+    
+    
+    <component name="logout">
+      <component-config>
+        <property name="ClassName" value="com.nordzucker.agri.portal.framework.LogoutComponent"/>
+        <property name="SafetyLevel" value="no_safety"/>
+      </component-config>
+      <component-profile>
+        <property name="Title" value="Logout"/>
+        <property name="EPCFLevel" value="0"/>
+        <property name="AuthScheme" value="anonymous"/>
+        <property name="SupportedUserAgents" value="(*,*,*)">
+          <property name="validvalues" value="7/(*,*,*)"/>
+        </property>
+      </component-profile>
+    </component>
+    
+    
+    
+    <component name="switch_locale">
+      <component-config>
+        <property name="ClassName" value="com.nordzucker.agri.portal.framework.SwitchLocaleComponent"/>
+        <property name="SafetyLevel" value="no_safety"/>
+      </component-config>
+      <component-profile>
+        <property name="Title" value="Switch Locale"/>
+        <property name="EPCFLevel" value="0"/>
+        <property name="AuthScheme" value="anonymous"/>
+        <property name="SupportedUserAgents" value="(*,*,*)">
+          <property name="validvalues" value="7/(*,*,*)"/>
+        </property>
+      </component-profile>
+    </component>
+    
+    
+    
+    <component name="search">
+      <component-config>
+        <property name="ClassName" value="com.nordzucker.agri.portal.framework.SearchComponent"/>
+        <property name="SafetyLevel" value="no_safety"/>
+        <property name="ResourceBundleName" value="search"/>
+      </component-config>
+      <component-profile>
+        <property name="Title" value="Test"/>
+        <property name="EPCFLevel" value="0"/>
+        <property name="AuthScheme" value="anonymous"/>
+        <property name="SupportedUserAgents" value="(*,*,*)">
+          <property name="validvalues" value="7/(*,*,*)"/>
+        </property>
+      </component-profile>
+    </component>
+  
+  
+    
+    <component name="html_fragment">
+      <component-config>
+        <property name="ClassName" value="com.nordzucker.agri.portal.framework.HTMLFragmentFromKM"/>
+        <property name="SafetyLevel" value="no_safety"/>
+      </component-config>
+      <component-profile>
+        <property name="Title" value="HTML Fragment From KM"/>
+        <property name="EPCFLevel" value="0"/>
+        <property name="AuthScheme" value="anonymous"/>
+        <property name="SupportedUserAgents" value="(*,*,*)">
+          <property name="validvalues" value="7/(*,*,*)"/>
+        </property>
+        <property name="com.nordzucker.agri.portal.framework.RID" value="/documents/nz_agri/footerContact.html">
+          <property name="plainDescription" value="HTML RID"/>
+   	  	  <property name="longDescription" value="The resource ID (= RID) of the HTML resource in KM"/>
+          <property name="category" value="Nordzucker"/>
+        </property>
+      </component-profile>
+    </component>
+  </components>
+  <services/>
+</application>

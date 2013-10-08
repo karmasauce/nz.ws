@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src.api"/>
+	<classpathentry kind="var" path="JRE_LIB" sourcepath="JRE_SRC"/>
+	<classpathentry kind="src" path="src.core"/>
+	<classpathentry kind="lib" path="/.lib73/SAP_EP/resources/prtapi.jar"/>
+	<classpathentry kind="lib" path="/.lib73/SAP_EP/resources/prttest.jar"/>
+	<classpathentry kind="lib" path="/.lib73/SAP_EP/resources/activation.jar"/>
+	<classpathentry kind="lib" path="/.lib73/SAP_EP/resources/jaxm-api.jar"/>
+	<classpathentry kind="lib" path="/.lib73/SAP_EP/resources/mail.jar"/>
+	<classpathentry kind="lib" path="/.lib73/SAP_EP/resources/saaj-api.jar"/>
+	<classpathentry kind="lib" path="/.lib73/SAP_EP/resources/com.sap.sapxmltoolkit.facade.jar"/>
+	<classpathentry kind="lib" path="/.lib73/SAP_EP/resources/com.sap.ide.security.facade.jar"/>
+	<classpathentry kind="lib" path="/.lib73/SAP_EP/resources/com.sap.engine.webservices.jar"/>
+	<classpathentry kind="lib" path="/.lib73/SAP_EP/resources/com.sap.portal.runtime.application.soap_api.jar"/>
+	<classpathentry kind="lib" path="dist/PORTAL-INF/lib/com.sapconsulting.portal.utils.html_api.jar"/>
+	<classpathentry kind="lib" path="dist/PORTAL-INF/lib/commons-beanutils-1.7.jar"/>
+	<classpathentry kind="lib" path="dist/PORTAL-INF/lib/commons-collections.jar"/>
+	<classpathentry kind="lib" path="dist/PORTAL-INF/lib/commons-lang.jar"/>
+	<classpathentry kind="lib" path="dist/PORTAL-INF/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="dist/PORTAL-INF/lib/ezmorph.jar"/>
+	<classpathentry kind="lib" path="dist/PORTAL-INF/lib/json-lib-2.2.2-jdk15.jar"/>
+	<classpathentry kind="lib" path="/.lib73/servlet.jar"/>
+	<classpathentry kind="lib" path="/.lib73/prtconnection.jar"/>
+	<classpathentry kind="lib" path="/.lib73/aliases.jar"/>
+	<classpathentry kind="lib" path="/.lib73/com.sap.portal.navigation.AliasService_api.jar"/>
+	<classpathentry kind="lib" path="/.lib73/com.sap.portal.navigation.api_service_api.jar"/>
+	<classpathentry kind="lib" path="/.lib73/com.sap.portal.navigation.helperservice_api.jar"/>
+	<classpathentry kind="lib" path="/.lib73/com.sap.portal.pagebuilder_api.jar"/>
+	<classpathentry kind="lib" path="/.lib73/bc.rf.framework_api.jar"/>
+	<classpathentry kind="lib" path="/.lib73/bc.util.public_api.jar"/>
+	<classpathentry kind="lib" path="/.lib73/OpenText/com.opentext.pct.wsmpm.config.svc.jar"/>
+	<classpathentry kind="lib" path="/.lib73/OpenText/com.opentext.pct.wsmpm.core.jar"/>
+	<classpathentry kind="lib" path="/.lib73/OpenText/com.opentext.pct.wsmpm.enc.proxy.jar"/>
+	<classpathentry kind="lib" path="/.lib73/OpenText/com.opentext.pct.wsmpm.search.jar"/>
+	<classpathentry kind="lib" path="/.lib73/sap.com~tc~sec~ume~api~impl.jar"/>
+	<classpathentry kind="lib" path="/.lib73/bc.rf.common_api.jar"/>
+	<classpathentry kind="lib" path="/.lib73/bc.sf.framework_api.jar"/>
+	<classpathentry kind="lib" path="/.lib73/bc.rf.global.service.mime_api.jar"/>
+	<classpathentry kind="lib" path="/.lib73/bc.rf.global.service.urimapper_api.jar"/>
+	<classpathentry kind="lib" path="/.lib73/km.shared.service.indexmanagement_api.jar"/>
+	<classpathentry kind="lib" path="/.lib73/km.shared.ui.released_api.jar"/>
+	<classpathentry kind="lib" path="/.lib73/com.sap.portal.desktop.desktopservice_api.jar"/>
+	<classpathentry kind="lib" path="/.lib73/lafapi.jar"/>
+<!-- 
+	<classpathentry kind="lib" path="/.lib73/NW04s/com.sap.security.api.jar"/>
+	<classpathentry kind="lib" path="/.lib73/com.sap.security.api.ep5.jar"/>
+-->
+	<classpathentry kind="output" path="classes.api"/>
+</classpath>

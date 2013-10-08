@@ -1,0 +1,310 @@
+<?xml version="1.0"?>
+<project name="com.nordzucker.agri.portal.framework" default="build" basedir=".">
+
+	<!-- define the claspath task -->
+	<taskdef resource="com/bosch/portal/ant/task/eclipseclasspath.properties" />
+
+	<!-- Load the file for the global properties -->
+	<property file="${basedir}/global.properties" />
+
+
+	<!-- Set the relative paths from the basedir -->
+	<property name="comp.priv" value="${basedir}/dist/PORTAL-INF" />
+	<property name="comp.pub" value="${basedir}/dist" />
+	<property name="comp.core.src" value="${basedir}/src.core" />
+	<property name="comp.api.src" value="${basedir}/src.api" />
+	<property name="comp.config.src" value="${basedir}/src.config" />
+	<property name="comp.build" value="${basedir}/build" />
+	<property name="comp.build.priv" value="${comp.build}/PORTAL-INF" />
+	<property name="comp.build.core.class" value="${comp.build.priv}/private/classes" />
+	<property name="comp.build.api.class" value="${comp.build.priv}/classes" />
+	<property name="comp.build.config" value="${comp.build.priv}/config" />
+
+	<!--<property name="dir.eclipseclasspath" value="${basedir}/../../.ant73" />-->
+	<property name="dir.eclipseclasspath" value="/Users/d037963/Development/Portal/.ant73" />
+	<property name="dir.env" value="${dir.eclipseclasspath}/env" />
+
+	<property name="cpath" value="${dir.eclipseclasspath}/lib/tc~je~dc_ant.jar: 
+		${dir.eclipseclasspath}/lib/sap.com~tc~exception~impl.jar:
+		${dir.eclipseclasspath}/lib/sap.com~tc~je~clientlib~impl.jar:
+		${dir.eclipseclasspath}/lib/sap.com~tc~logging~java~impl.jar:
+		${dir.eclipseclasspath}/lib/sap.com~tc~je~deployment14~impl.jar" />
+
+
+	<taskdef name="sapdeploy" classname="com.sap.engine.services.dc.ant.deploy.SAPDeploy" classpath="${cpath}" />
+	<taskdef name="sapundeploy" classname="com.sap.engine.services.dc.ant.undeploy.SAPUndeploy" classpath="${cpath}" />
+	<taskdef name="sapparams" classname="com.sap.engine.services.dc.ant.params.SAPParams" classpath="${cpath}" />
+
+
+	<target name="prepare_dirs">
+		<delete dir="${comp.build}" quiet="true" />
+
+		<!-- Make new directories -->
+		<mkdir dir="${comp.build}" />
+		<mkdir dir="${comp.build.priv}" />
+		<mkdir dir="${comp.build.priv}/lib" />
+		<mkdir dir="${comp.build.priv}/private/lib" />
+		<mkdir dir="${comp.build.priv}/config" />
+		<mkdir dir="${comp.build.api.class}" />
+		<mkdir dir="${comp.build.core.class}" />
+		<mkdir dir="${comp.build.config}" />
+
+		<available file="${comp.core.src}" property="core_src_available" />
+		<available file="${comp.api.src}" property="api_src_available" />
+		<available file="${comp.config.src}" property="config_src_available" />
+	</target>
+
+	<!-- Build the project component as par file -->
+	<target name="build" depends="prepare_dirs, compile_api, compile_core, compile_config">
+		<!-- Delete the classes directory -->
+		<delete dir="${comp.build.api.class}" quiet="true" />
+		<delete dir="${comp.build.core.class}" quiet="true" />
+		<delete dir="${comp.build.config}" quiet="true" />
+
+		<!--antcall target="create_guid"/-->
+
+		<!-- create web.xml -->
+		<antcall target="create_web" />
+
+		<!-- Copy 'public' and 'private' directories to the build directory -->
+		<copy todir="${comp.build}">
+			<fileset dir="${basedir}/dist">
+				<include name="**/*" />
+				<include name="PORTAL-INF/**/*" />
+				<exclude name="src.api/**/*" />
+				<exclude name="src.core/**/*" />
+			</fileset>
+		</copy>
+
+		<!-- rename PORTAL-INF directory to WEB-INF -->
+		<move todir="${comp.build}/WEB-INF">
+			<fileset dir="${comp.build}/PORTAL-INF" />
+		</move>
+
+		<!-- Create the war file -->
+		<zip zipfile="${comp.build}/${component}.war">
+			<fileset dir="${comp.build}">
+				<include name="**/*" />
+			</fileset>
+		</zip>
+
+		<!--<delete dir="${comp.build}/WEB-INF" quiet="true"/>-->
+		
+		<!-- Delete all files, except the war file -->
+		<delete includeemptydirs="true">
+			<fileset dir="${comp.build}" excludes="**/*.war" />
+		</delete>
+
+
+		<!-- create META-INF directory with necessary files -->
+		<antcall target="create_metainf" />
+
+		<!-- Create the ear file -->
+		<zip zipfile="${basedir}/${component}.ear">
+			<fileset dir="${comp.build}">
+				<include name="**/*" />
+			</fileset>
+		</zip>
+
+		<!-- delete build dir -->
+		<delete dir="${comp.build}" quiet="true" />
+	</target>
+
+	<target name="compile_api" if="api_src_available" depends="prepare_dirs">
+		<!-- set the classpath -->
+		<eclipsecp pathid="build.classpath" />
+
+		<!--Compile the sources - set value path.service.all in libraries.properties -->
+		<javac srcdir="${comp.api.src}" destdir="${comp.build.api.class}" debug="${compiler.debug}" optimize="${compiler.optimize}" deprecation="${compiler.deprecation}" verbose="${compiler.verbose}" includeantruntime="false">
+			<classpath>
+				<path refid="build.classpath" />
+			</classpath>
+		</javac>
+		<!-- copy all not java files to build directory -->
+		<copy todir="${comp.build.api.class}">
+			<fileset dir="${comp.api.src}">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		<!-- Create the jar file from the classes and store them in the lib dir -->
+		<jar jarfile="${comp.build.priv}/lib/${component}api.jar">
+			<fileset dir="${comp.build.api.class}">
+				<exclude name="**/*.java" />
+				<exclude name="**/*.js" />
+				<exclude name="**/*.html" />
+				<exclude name="**/*~*" />
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="compile_core" if="core_src_available" depends="prepare_dirs, compile_api">
+		<!-- set the classpath -->
+		<eclipsecp pathid="build.classpath" />
+
+		<!--Compile the sources - set value path.service.all in libraries.properties -->
+		<javac srcdir="${comp.core.src}" destdir="${comp.build.core.class}" debug="${compiler.debug}" optimize="${compiler.optimize}" deprecation="${compiler.deprecation}" verbose="${compiler.verbose}" includeantruntime="false">
+			<classpath>
+				<path refid="build.classpath" />
+				<pathelement location="${comp.build.api.class}" />
+			</classpath>
+		</javac>
+		<!-- copy all not java files to build directory -->
+		<copy todir="${comp.build.core.class}">
+			<fileset dir="${comp.core.src}">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		<!-- Create the jar file from the classes and store them in the lib dir -->
+		<jar jarfile="${comp.build.priv}/private/lib/${component}core.jar">
+			<fileset dir="${comp.build.core.class}">
+				<exclude name="**/*.java" />
+				<exclude name="**/*.js" />
+				<exclude name="**/*.html" />
+				<exclude name="**/*~*" />
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="compile_config_meta" if="config_meta_available">
+		<!-- generate manifest from configArchive.properties -->
+		<mkdir dir="${comp.build.config}/install/meta/expanded/META-INF" />
+		<manifest file="${comp.build.config}/install/meta/expanded/META-INF/MANIFEST.MF">
+			<attribute name="CMA-Creation-Machine" value="${cma.creation.machine}" />
+			<attribute name="CMA-Name" value="${cma.name}" />
+			<attribute name="CMA-Creation-Time" value="${cma.creation.time}" />
+			<attribute name="CMA-Creation-Date" value="${cma.creation.date}" />
+			<attribute name="CMA-Creation-User" value="${cma.creation.user}" />
+			<attribute name="CMA-Version" value="${cma.version}" />
+			<attribute name="CMA-Dependencies" value="${cma.dependencies}" />
+			<attribute name="CMA-Storage" value="${cma.storage}" />
+		</manifest>
+		<!-- zip the meta directory to prjconfig.configmeta -->
+		<mkdir dir="${comp.build.config}/install/meta/lib" />
+		<zip zipfile="${comp.build.config}/install/meta/lib/${cma.name}.configmeta">
+			<fileset dir="${comp.build.config}/install/meta/expanded">
+				<include name="**/*" />
+			</fileset>
+		</zip>
+	</target>
+
+	<target name="compile_config" if="config_src_available" depends="prepare_dirs">
+		<property file="${comp.config.src}/configArchive.properties" />
+
+		<!-- copy to build directory -->
+		<copy todir="${comp.build.config}">
+			<fileset dir="${comp.config.src}">
+				<include name="install/**/*" />
+			</fileset>
+		</copy>
+
+		<available file="${comp.build.config}/install/meta" property="config_meta_available" />
+		<antcall target="compile_config_meta" />
+
+		<!-- generate manifest from configArchive.properties -->
+		<mkdir dir="${comp.build.config}/META-INF" />
+		<manifest file="${comp.build.config}/META-INF/MANIFEST.MF">
+			<attribute name="CA-Creation-Machine" value="${ca.creation.machine}" />
+			<attribute name="CA-Name" value="${ca.name}" />
+			<attribute name="CA-Creation-Time" value="${ca.creation.time}" />
+			<attribute name="CA-Creation-Date" value="${ca.creation.date}" />
+			<attribute name="CA-Creation-User" value="${ca.creation.user}" />
+			<attribute name="CA-Version" value="${ca.version}" />
+			<attribute name="CA-Dependencies" value="${ca.dependencies}" />
+		</manifest>
+		<!-- zip the prjconfig.configarchive -->
+		<mkdir dir="${comp.priv}/config" />
+		<zip zipfile="${comp.priv}/config/${ca.name}.configarchive">
+			<fileset dir="${comp.build.config}">
+				<include name="install/data/**/*" />
+				<include name="install/meta/lib/*" />
+				<include name="META-INF/*" />
+			</fileset>
+		</zip>
+	</target>
+
+
+	<target name="create_guid">
+		<scriptdef name="generateguid" language="javascript">
+			<attribute name="property" />
+			<![CDATA[
+		    importClass( java.util.UUID );
+
+		    project.setProperty( attributes.get( "property" ), UUID.randomUUID() );
+		    ]]>
+		</scriptdef>
+
+		<generateguid property="guid1" />
+		<echo file="${comp.build.priv}/guid.txt" message="${guid1}" />
+	</target>
+
+
+	<target name="create_web">
+		<copy file="${dir.env}/war/web.xml" tofile="${comp.build.priv}/web.xml" />
+		<replace file="${comp.build.priv}/web.xml" token="@component@" value="${component}" />
+	</target>
+
+
+	<target name="create_metainf">
+		<!-- prepare properties -->
+		<tstamp />
+		<buildnumber />
+
+		<mkdir dir="${comp.build}/META-INF" />
+
+		<copy todir="${comp.build}/META-INF">
+			<fileset dir="${dir.env}/ear/metainf">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		<replace dir="${comp.build}/META-INF" token="@component@" value="${component}" />
+		<replace dir="${comp.build}/META-INF" token="@version@" value="${version.nummer}.${build.number}.${DSTAMP}" />
+
+		<manifest file="${comp.build}/META-INF/MANIFEST.MF" mode="replace">
+			<attribute name="Implementation-Title" value="${Implementation-Title}" />
+			<attribute name="Implementation-Vendor-Id" value="${Implementation-Vendor-Id}" />
+			<attribute name="Implementation-Vendor" value="${Implementation-Vendor}" />
+			<attribute name="Implementation-Version" value="${version.nummer}.${build.number}.${DSTAMP}" />
+			<attribute name="Creation-Date" value="${DSTAMP}" />
+			<attribute name="JDK-Version" value="${JDK-Version}" />
+			<attribute name="Portal-Version" value="${Portal-Version}" />
+			<attribute name="CM-Version" value="${CM-Version}" />
+			<attribute name="ChangeTool-Offline-Deployment" value="${ChangeTool-Offline-Deployment}" />
+			<attribute name="Specification-Vendor" value="SAP AG" />
+		</manifest>
+
+		<echo message="Implementation-Version: ${version.nummer}.${build.number}.${DSTAMP}${line.separator}" />
+	</target>
+
+	<target name="deploy" depends="build">
+		<!-- versionrule: "all" | "same_and_lower" | "lower" -->
+		<sapdeploy versionrule="all">
+			<!-- erroraction:   "prerequisites" | "deploy" | "undeploy" -->
+			<!-- errorstrategy: "stop" | "skip" -->
+			<saperrorhandling erroraction="prerequisites" errorstrategy="stop" />
+			<saperrorhandling erroraction="deploy" errorstrategy="stop" />
+
+			<!-- specify absolute path to the archives -->
+			<fileset dir="${basedir}">
+				<include name="*.ear" />
+			</fileset>
+
+			<sapj2eeengine serverhost="${fgsbz_serverhost}" serverport="${serverport}" username="${fgsbz_username}" userpassword="${fgsbz_userpassword}" />
+		</sapdeploy>
+	</target>
+
+	<target name="undeploy">
+		<!-- undeploy strategy: "IfDependingStop" | "UndeployDepending" -->
+		<sapundeploy undeploystrategy="IfDependingStop">
+			<!-- erroraction:   "prerequisites" | "deploy" | "undeploy" -->
+			<!-- errorstrategy: "stop" | "skip" -->
+			<saperrorhandling erroraction="prerequisites" errorstrategy="stop" />
+			<saperrorhandling erroraction="undeploy" errorstrategy="stop" />
+
+			<!-- specify absolute path to the file containing list with components for undeploy -->
+			<sapundeploylist listfilepath="${basedir}" />
+
+			<sapj2eeengine serverhost="${fgsbz_serverhost}" serverport="${serverport}" username="${fgsbz_username}" userpassword="${fgsbz_userpassword}" />
+		</sapundeploy>
+	</target>
+
+</project>

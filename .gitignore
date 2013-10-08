@@ -1,0 +1,8 @@
+
+*/log/dc_log/deploy_api.0.*
+
+*/classes.api/*
+
+.metadata/*
+
+.DS_Store

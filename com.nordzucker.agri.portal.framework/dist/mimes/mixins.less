@@ -1,0 +1,258 @@
+.box-sizing-border() {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing:    border-box;
+	-ms-box-sizing:     border-box;
+	-o-box-sizing:      border-box;
+	box-sizing:         border-box;
+}
+.border-radius(@r: 5rem) {
+	-webkit-border-radius: @arguments;
+	-moz-border-radius:    @arguments;
+	border-radius:         @arguments;
+}
+.linear-gradient(@from, @to) {
+	background-image: -webkit-linear-gradient(top, @from, @to);
+	background-image:    -moz-linear-gradient(top, @from, @to);
+	background-image:     -ms-linear-gradient(top, @from, @to);
+	background-image:      -o-linear-gradient(top, @from, @to);
+	background-image:         linear-gradient(top, @from, @to);
+}
+.linear-gradient(@from, @over, @to) {
+	background-image: -webkit-linear-gradient(top, @from, @over, @to);
+	background-image:    -moz-linear-gradient(top, @from, @over, @to);
+	background-image:     -ms-linear-gradient(top, @from, @over, @to);
+	background-image:      -o-linear-gradient(top, @from, @over, @to);
+	background-image:         linear-gradient(top, @from, @over, @to);
+}
+.linear-gradient(@dir, @from, @over, @to) {
+	background-image: -webkit-linear-gradient(@dir, @from, @over, @to);
+	background-image:    -moz-linear-gradient(@dir, @from, @over, @to);
+	background-image:     -ms-linear-gradient(@dir, @from, @over, @to);
+	background-image:      -o-linear-gradient(@dir, @from, @over, @to);
+	background-image:         linear-gradient(@dir, @from, @over, @to);
+}
+.lg-bg(@from, @to, @bg) {
+	background: -webkit-linear-gradient(top, @from, @to), @bg;
+	background:    -moz-linear-gradient(top, @from, @to), @bg;
+	background:     -ms-linear-gradient(top, @from, @to), @bg;
+	background:      -o-linear-gradient(top, @from, @to), @bg;
+	background:         linear-gradient(top, @from, @to), @bg;
+}
+.lg-bg(@from, @over, @to, @bg) {
+	background: -webkit-linear-gradient(top, @from, @over, @to), @bg;
+	background:    -moz-linear-gradient(top, @from, @over, @to), @bg;
+	background:     -ms-linear-gradient(top, @from, @over, @to), @bg;
+	background:      -o-linear-gradient(top, @from, @over, @to), @bg;
+	background:         linear-gradient(top, @from, @over, @to), @bg;
+}
+.transition(@p1, @p2, @p3, @p4) {
+	-webkit-transition: @p1, @p2, @p3, @p4;
+	-moz-transition:    @p1, @p2, @p3, @p4;
+	-ms-transition:     @p1, @p2, @p3, @p4;
+	-o-transition:      @p1, @p2, @p3, @p4;
+	transition:         @p1, @p2, @p3, @p4;
+}
+.transition(@p1, @p2, @p3) {
+	-webkit-transition: @p1, @p2, @p3;
+	-moz-transition:    @p1, @p2, @p3;
+	-ms-transition:     @p1, @p2, @p3;
+	-o-transition:      @p1, @p2, @p3;
+	transition:         @p1, @p2, @p3;
+}
+.transition(@p1, @p2) {
+	-webkit-transition: @p1, @p2;
+	-moz-transition:    @p1, @p2;
+	-ms-transition:     @p1, @p2;
+	-o-transition:      @p1, @p2;
+	transition:         @p1, @p2;
+}
+.transition(@p1) {
+	-webkit-transition: @p1;
+	-moz-transition:    @p1;
+	-ms-transition:     @p1;
+	-o-transition:      @p1;
+	transition:         @p1;
+}
+.transform(@p1) {
+	-webkit-transform: @p1;
+	-moz-transform:    @p1;
+	-ms-transform:     @p1;
+	-o-transform:      @p1;
+	transform:         @p1;
+}
+.clearfix {
+	overflow: hidden;
+}
+.clearfix-old() {
+	content: '.';
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+.font-size(@v) {
+	@rem: @v;
+	@px: (@v * 10);
+	font-size: ~"@{px}px"; 
+	font-size: ~"@{rem}rem";
+}
+.line-height(@v) {
+	@rem: @v;
+	@px: (@v * 10);
+	line-height: ~"@{px}px"; 
+	line-height: ~"@{rem}rem";
+}
+.height(@v) {
+	@rem: @v;
+	@px: (@v * 10);
+	height: ~"@{px}px"; 
+	height: ~"@{rem}rem";
+}
+.min-height(@v) {
+	@rem: @v;
+	@px: (@v * 10);
+	min-height: ~"@{px}px"; 
+	min-height: ~"@{rem}rem";
+}
+.width(@v) {
+	@rem: @v;
+	@px: (@v * 10);
+	width: ~"@{px}px"; 
+	width: ~"@{rem}rem";
+}
+.min-width(@v) {
+	@rem: @v;
+	@px: (@v * 10);
+	min-width: ~"@{px}px"; 
+	min-width: ~"@{rem}rem";
+}
+
+.margin-top(@s) {
+	@rem: @s;
+	@px: (@s * 10);
+	margin-top: ~"@{px}px"; 
+	margin-top: ~"@{rem}rem";
+}
+.margin-right(@s) {
+	@rem: @s;
+	@px: (@s * 10);
+	margin-right: ~"@{px}px"; 
+	margin-right: ~"@{rem}rem";
+}
+.margin-bottom(@s) {
+	@rem: @s;
+	@px: (@s * 10);
+	margin-bottom: ~"@{px}px"; 
+	margin-bottom: ~"@{rem}rem";
+}
+.margin-left(@s) {
+	@rem: @s;
+	@px: (@s * 10);
+	margin-left: ~"@{px}px"; 
+	margin-left: ~"@{rem}rem";
+}
+.margin(@s) {
+	@rem: @s;
+	@px: (@s * 10);
+	margin: ~"@{px}px"; 
+	margin: ~"@{rem}rem";
+}
+.margin(@s1, @s2) {
+	@rem1: @s1;
+	@px1: (@s1 * 10);
+	@rem2: @s2;
+	@px2: (@s2 * 10);
+	margin: ~"@{px1}px @{px2}px"; 
+	margin: ~"@{rem1}rem @{rem2}rem";
+}
+.margin(@s1, @s2, @s3) {
+	@rem1: @s1;
+	@px1: (@s1 * 10);
+	@rem2: @s2;
+	@px2: (@s2 * 10);
+	@rem3: @s3;
+	@px3: (@s3 * 10);
+	margin: ~"@{px1}px @{px2}px @{px3}px"; 
+	margin: ~"@{rem1}rem @{rem2}rem @{rem3}rem";
+}
+.margin(@s1, @s2, @s3, @s4) {
+	@rem1: @s1;
+	@px1: (@s1 * 10);
+	@rem2: @s2;
+	@px2: (@s2 * 10);
+	@rem3: @s3;
+	@px3: (@s3 * 10);
+	@rem4: @s4;
+	@px4: (@s4 * 10);
+	margin: ~"@{px1}px @{px2}px @{px3}px @{px4}px"; 
+	margin: ~"@{rem1}rem @{rem2}rem @{rem3}rem @{rem4}rem";
+}
+
+.padding-top(@s) {
+	@rem: @s;
+	@px: (@s * 10);
+	padding-top: ~"@{px}px"; 
+	padding-top: ~"@{rem}rem";
+}
+.padding-right(@s) {
+	@rem: @s;
+	@px: (@s * 10);
+	padding-right: ~"@{px}px"; 
+	padding-right: ~"@{rem}rem";
+}
+.padding-bottom(@s) {
+	@rem: @s;
+	@px: (@s * 10);
+	padding-bottom: ~"@{px}px"; 
+	padding-bottom: ~"@{rem}rem";
+}
+.padding-left(@s) {
+	@rem: @s;
+	@px: (@s * 10);
+	padding-left: ~"@{px}px"; 
+	padding-left: ~"@{rem}rem";
+}
+.padding(@s) {
+	@rem: @s;
+	@px: (@s * 10);
+	padding: ~"@{px}px"; 
+	padding: ~"@{rem}rem";
+}
+.padding(@s1, @s2) {
+	@rem1: @s1;
+	@px1: (@s1 * 10);
+	@rem2: @s2;
+	@px2: (@s2 * 10);
+	padding: ~"@{px1}px @{px2}px"; 
+	padding: ~"@{rem1}rem @{rem2}rem";
+}
+.padding(@s1, @s2, @s3) {
+	@rem1: @s1;
+	@px1: (@s1 * 10);
+	@rem2: @s2;
+	@px2: (@s2 * 10);
+	@rem3: @s3;
+	@px3: (@s3 * 10);
+	padding: ~"@{px1}px @{px2}px @{px3}px"; 
+	padding: ~"@{rem1}rem @{rem2}rem @{rem3}rem";
+}
+.padding(@s1, @s2, @s3, @s4) {
+	@rem1: @s1;
+	@px1: (@s1 * 10);
+	@rem2: @s2;
+	@px2: (@s2 * 10);
+	@rem3: @s3;
+	@px3: (@s3 * 10);
+	@rem4: @s4;
+	@px4: (@s4 * 10);
+	padding: ~"@{px1}px @{px2}px @{px3}px @{px4}px"; 
+	padding: ~"@{rem1}rem @{rem2}rem @{rem3}rem @{rem4}rem";
+}
+
+.left(@s) {
+	@rem: @s;
+	@px: (@s * 10);
+	left: ~"@{px}px"; 
+	left: ~"@{rem}rem";
+}

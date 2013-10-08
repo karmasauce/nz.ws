@@ -1,0 +1,25 @@
+#########################
+####default jar files####
+#########################
+PRT_API_JAR=prtapi.jar
+PRT_TEST_JAR=prttest.jar
+ACTIVATION_JAR=activation.jar
+JAXM_API_JAR=jaxm-api.jar
+MAIL_JAR=mail.jar
+SAAJ_API_JAR=saaj-api.jar
+SAPXMLTOOLKIT_JAR=com.sap.sapxmltoolkit.facade.jar
+SECURITY_JAR=com.sap.ide.security.facade.jar
+WEBSERVICES_JAR=com.sap.engine.webservices.jar
+SOAP_API_JAR=com.sap.portal.runtime.application.soap_api.jar
+SERVLET_JAR=servlet.jar
+
+
+
+
+
+
+####################################
+####jar files for JSP components####
+####################################
+HTLMB_API_JAR=com.sap.portal.htmlb.jar
+HTLMB_JAR=com.sapportals.htmlb.jar
