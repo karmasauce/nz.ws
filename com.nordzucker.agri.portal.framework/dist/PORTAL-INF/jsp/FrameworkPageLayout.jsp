@@ -91,7 +91,7 @@ if (!cfg.isAnonymousUser()) {%>
 						%><span class="user_id"><%=userId%></span><%
 					%></span><%
 					%><label class="bpselect_label"><%=str(rb,"text.businesspartner")%></label><div class="bpselect_container"></div></li>
-				<li><a id="logOut" title="<%=str(rb,"title.log_off_from_portal")%>" href="/irj/go/portal/prtmode/json/prtroot/nz.logout?logout_submit=true&url=<%=portalPath.replaceFirst("/login$", "")%>"><span class="hidden"><%=str(rb,"text.logoff")%></span></a></li>
+				<li><a id="logOut" title="<%=str(rb,"title.log_off_from_portal")%>" href="/irj/go/portal/prtmode/json/prtroot/nz.logout?logout_submit=true&url=<%=portalPath.replaceFirst("/login$", "")%>" data-external-url="<%=cfg.getExternalUrl()%>" data-silent="<%=cfg.isSilent()%>"><span class="hidden"><%=str(rb,"text.logoff")%></span></a></li>
 			</ul><%
 }
 %>
@@ -102,7 +102,7 @@ if (!cfg.isAnonymousUser()) {%>
 			</ul>
 			<ul>
 				<li><form id="searchForm" class="searchForm" role="search" data-dynamic="<%=dynamic%>" title="<%=str(rb,"title.search")%>"><input id="searchTerm" name="term" class="term"><button title="<%=str(rb,"title.search")%>"><%=str(rb,"button.search")%></button></form></li>
-				<li><button id="print" title="<%=str(rb,"title.print")%>"><%=str(rb,"button.print")%></button></li>
+				<!--[if gt IE 8]--><li><button id="print" title="<%=str(rb,"title.print")%>"><%=str(rb,"button.print")%></button></li><!--[endif]-->
 				<%
 if (rssUrl != null && !rssUrl.equals("")) {
 				%><li><a href="<%=rssUrl%>" id="rss" title="<%=str(rb,"title.rss_feed")%>"><span class="hidden"><%=str(rb,"button.rss_feed")%></span></a></li><%

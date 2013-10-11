@@ -1,8 +1,10 @@
-// xxxxcodekit-prepend "jquery.js", "dropkick/jquery.dropkick-1.0.0.js", "session.js", "bpselect_plain.js"
-// @prepros-prepend jquery.js
-// @prepros-prepend dropkick/jquery.dropkick-1.0.0.js
-// @prepros-prepend session.js
-// @prepros-prepend bpselect_plain.js
+// Note: The following is the list of JS files that have to be prepended by the Minifier. 
+// On a Mac you can use Codekit, on a PC you can use Prepros. If you use Prepros you may change (at)codekit-prepend to (at)prepros-prepend.
+// 
+// @codekit-prepend jquery.js
+// @codekit-prepend dropkick/jquery.dropkick-1.0.0.js
+// @codekit-prepend session.js
+// @codekit-prepend bpselect_plain.js
 
 function nordzucker(window, document, $, FWK, RB) {
 	var $window = $(window)
@@ -715,10 +717,77 @@ function nordzucker(window, document, $, FWK, RB) {
 		/**
 		 * LOGOUT
 		 */
-		$logOut.on('click', function _click(ev) {
-			SESSION.removeAllValues()
-			sap.bpselect.resetBusinessPartner()
-		})
+		;(function _LOGOUT() {
+			var isLogoffFinalAllowed = true
+			  , logoffStartTime = +new Date
+			  , silent
+			  , externalUrl
+			  , logoffURLComponent
+
+			  , logoff = function _logoff() {
+					window.EPCM && EPCM.raiseEvent('urn:com.sapportals.portal:user', 'logoff', '')
+					logoffStartTime = +new Date
+					setTimeout(logoffDelay, 50)
+				}
+
+			  , logoffDelay = function _logoffDelay() {
+					var isLogoffDelayElapsed = (+new Date) - logoffStartTime > 60*1000
+
+					if (isLogoffFinalAllowed || isLogoffDelayElapsed) {
+						if (typeof CloseAllObj !== 'undefined' && CloseAllObj !== null) {
+							CloseAllObj.logoutFromThisWindow = true
+							CloseAllObj.setFlagValue(CloseAllObj.OUT)
+						}
+						logoffFinalCall()
+					} else {
+						setTimeout(logoffDelay, 50) 
+					}
+				}
+
+			  , logoffFinalCall = function _logoffFinalCall() {
+					logoffThirdParty()
+
+					//set the cookie value to logOff
+					if (typeof CloseAllObj !== 'undefined' && CloseAllObj !== null) {
+						CloseAllObj.logout_from_this_window = true
+						CloseAllObj.setFlagValue(CloseAllObj.OUT)
+					}
+					
+					// disable work protect in the main window 
+					disableWorkProtectCheck = true
+					submitLogoffForm()
+				}
+
+			  , submitLogoffForm = function _submitLogoffForm() {
+					$('<form method="POST" action="' + logoffUrl + '" target="_top" />')
+						.hide()
+						.appendTo(document.body)
+						.submit()
+				}
+
+			  , logoffThirdParty = function _logoffThirdParty() {
+					if (!!externalUrl && externalUrl !== 'null' && silent) {
+						$('<iframe id="externalLogOffIframe" src="' + externalUrl + '" />')
+							.hide()
+							.appendTo(document.body)
+					}
+				}
+
+			$logOut.on('click', function _click(ev) {
+				var $a = $(this)
+
+				logoffUrl = $a.attr('href')
+				externalUrl = $a.data('externalUrl')
+				silent = $a.data('silent') === 'true'
+
+				logoff()
+
+				SESSION.removeAllValues()
+				sap.bpselect.resetBusinessPartner()
+			
+				ev.preventDefault()
+			})
+		})()
 
 
 

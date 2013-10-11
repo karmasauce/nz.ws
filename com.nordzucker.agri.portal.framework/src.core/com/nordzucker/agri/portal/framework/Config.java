@@ -14,6 +14,8 @@ import com.nordzucker.agri.portal.framework.utils.NavNode;
 import com.sap.engine.lib.xml.util.StringUtils;
 import com.sap.portal.navigation.IAliasHelper;
 import com.sap.portal.navigation.IAliasService;
+import com.sap.security.api.UMFactory;
+import com.sap.security.api.util.IUMParameters;
 import com.sapportals.portal.navigation.INavigationNode;
 import com.sapportals.portal.navigation.INavigationService;
 import com.sapportals.portal.navigation.NavigationEventsHelperService;
@@ -73,7 +75,8 @@ public class Config {
 	private String pageTitle;
 	private String pageDescription;
 	private Locale locale;
-	
+	private String externalUrl;
+	private boolean isSilent;
 	boolean isDebug = false;
 
 	public Config(IPortalComponentRequest request) {
@@ -169,6 +172,12 @@ public class Config {
 		if (pageTitleParam != null) {
 			pageTitle = StringUtils.unescapeURL(pageTitleParam);
 		}
+		
+		
+		// variables for the logoff logic
+		IUMParameters umProperties = UMFactory.getProperties();
+		externalUrl = umProperties.get("ume.logoff.redirect.url");
+		isSilent = umProperties.getBoolean("ume.logoff.redirect.silent", false);
 	}
 	
 
@@ -263,6 +272,14 @@ public class Config {
 
 	public Locale getLocale() {
 		return locale;
+	}
+	
+	public String getExternalUrl() {
+		return externalUrl;
+	}
+	
+	public boolean isSilent() {
+		return isSilent;
 	}
 	
 	public String getLanguageName() {
