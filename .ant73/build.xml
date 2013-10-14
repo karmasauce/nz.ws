@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build_EclipseClasspathTask" default="make_jar" basedir=".">
+
+	<!-- define the claspath task -->
+	<taskdef resource="com/bosch/portal/ant/task/eclipseclasspath.properties"/>
+
+	<!-- Load the file for the global properties -->
+	<property file="global.properties"/>
+	
+	<property name="comp.build" value="build"/>	
+	<property name="comp.src" value="src"/>
+	<property name="comp.lib" value="lib"/>	
+	
+	
+    <target name ="make_jar"> 
+    	<delete dir="${comp.build}" verbose="false"/>
+		<mkdir dir="${comp.build}"/>
+    	
+		<!-- set the classpath -->
+		<eclipsecp pathid="build.classpath"/>    	    	
+    	
+		<!-- compile the classes -->    	
+   	    <javac srcdir="${comp.src}" destdir="${comp.build}" classpathref="build.classpath" debug="${compiler.debug}" optimize="${compiler.optimize}" deprecation="${compiler.deprecation}" verbose="${compiler.verbose}"/>
+    	
+		<!-- prepare properties -->
+    	<tstamp/>
+    	<buildnumber/>
+    	
+		<!-- make jar file -->
+    	<jar destfile="${jar.name}">
+			<fileset dir="${comp.build}"/>
+			<fileset dir="${comp.src}" excludes="**/*.java"/>
+        	<manifest>
+    			<attribute name="Implementation-Title" value="${Implementation-Title}"/>
+    			<attribute name="Implementation-Vendor-Id" value="${Implementation-Vendor-Id}"/>
+    			<attribute name="Implementation-Vendor" value="${Implementation-Vendor}"/>
+        		<attribute name="Implementation-Version" value="${version.nummer}.${build.number}.${DSTAMP}"/>
+    			<attribute name="Main-Class" value="${Main-Class}"/>
+    			<attribute name="Class-Path" value="${Class-Path}"/>
+        	</manifest>
+    	</jar>
+    	
+		<delete dir="${comp.build}" verbose="false"/>
+    	    	
+    	    	
+    </target>
+	
+   </project>

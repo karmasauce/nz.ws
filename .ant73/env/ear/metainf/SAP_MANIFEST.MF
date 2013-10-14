@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Ext-SDM-SDA-Comp-Version: 1
+softwaretype: J2EE
+JarSAP-Standalone-Version: 20090803.1000
+JarSAPProcessing-Version: 20090907.1000
+deployfile: sda-dd.xml
+archivetype: DC
+keyname: @component@
+keyvendor: sap.com
+keylocation: sap.com
+keycounter: @version@
+componentelement: <componentelement  name="@component@" vendor="sap.com" componenttype="DC" subsystem="NO_SUBSYS" location="sap.com" counter="@version@" deltaversion="F" updateversion="LB-20120328163057" componentprovider="sap.com" archivetype="DC"/> 
+JarSL-Version: 20100616.1800
+compress: true
+
