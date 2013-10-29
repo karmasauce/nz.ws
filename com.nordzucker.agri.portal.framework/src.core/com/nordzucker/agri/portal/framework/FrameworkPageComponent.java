@@ -84,7 +84,7 @@ public class FrameworkPageComponent extends AbstractPortalComponent {
 			}
 		}
 		
-		else if (cfg.isOTPage()) { // || cfg.isWPCPage() || cfg.isKMPage() ||Êcfg.isHomePage()
+		else if (cfg.isOTPage()) { // || cfg.isWPCPage() || cfg.isKMPage() || cfg.isHomePage()
 			// one of the 'known' content pages, embed directly
 			addChildNode(request, cfg.getLaunchURL());
 		} 

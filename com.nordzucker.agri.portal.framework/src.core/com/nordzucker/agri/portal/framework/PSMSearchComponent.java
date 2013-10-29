@@ -260,9 +260,9 @@ public class PSMSearchComponent extends AbstractPortalComponent {
 //						// response.write("<dd class='info category'><a href='first-category.html' class='link'>Erste Kategorie</a></dd>");
 //						// response.write("<dd class='info category'><a href='second-category.html' class='link'>Zweite Kategorie</a></dd>");
 //
-//						// response.write("<dt class='info fsize'>Dateigröße</dt>");
+//						// response.write("<dt class='info fsize'>Dateigr√∂√üe</dt>");
 //						// response.write("<dd class='info fsize'>2 <abbr title='kilobyte'>kB</abbr></dd>");
-//						// response.write("<dt class='info modified'>Letzte Änderung</dt>");
+//						// response.write("<dt class='info modified'>Letzte √Ñnderung</dt>");
 //						// response.write("<dd class='info modified'><time datetime='2012-11-20T12:34:56Z'>Heute, 12:34 Uhr</time></dd>");
 //
 //						response.write("</dl>");

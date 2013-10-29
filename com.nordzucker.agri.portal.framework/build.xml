@@ -21,7 +21,7 @@
 	<property name="comp.build.config" value="${comp.build.priv}/config" />
 
 	<!--<property name="dir.eclipseclasspath" value="${basedir}/../../.ant73" />-->
-	<property name="dir.eclipseclasspath" value="/Users/d037963/Development/Portal/.ant73" />
+	<property name="dir.eclipseclasspath" value="/Users/d054487/Documents/Development/nz.ws/.ant73" />
 	<property name="dir.env" value="${dir.eclipseclasspath}/env" />
 
 	<property name="cpath" value="${dir.eclipseclasspath}/lib/tc~je~dc_ant.jar: 
@@ -288,7 +288,7 @@
 				<include name="*.ear" />
 			</fileset>
 
-			<sapj2eeengine serverhost="${fgsbz_serverhost}" serverport="${serverport}" username="${fgsbz_username}" userpassword="${fgsbz_userpassword}" />
+			<sapj2eeengine serverhost="${serverhost}" serverport="${serverport}" username="${username}" userpassword="${userpassword}" />
 		</sapdeploy>
 	</target>
 
@@ -303,7 +303,7 @@
 			<!-- specify absolute path to the file containing list with components for undeploy -->
 			<sapundeploylist listfilepath="${basedir}" />
 
-			<sapj2eeengine serverhost="${fgsbz_serverhost}" serverport="${serverport}" username="${fgsbz_username}" userpassword="${fgsbz_userpassword}" />
+			<sapj2eeengine serverhost="${serverhost}" serverport="${serverport}" username="${username}" userpassword="${userpassword}" />
 		</sapundeploy>
 	</target>
 

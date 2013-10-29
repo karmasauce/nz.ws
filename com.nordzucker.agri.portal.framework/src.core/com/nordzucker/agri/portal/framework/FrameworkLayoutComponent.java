@@ -42,6 +42,8 @@ public class FrameworkLayoutComponent extends PageLayout {
 //		ResourceBundle rb = ResourceBundle.getBundle("framework", cfg.getLocale());
 		ResourceBundle rb = request.getResourceBundle();
 		
+		
+		
 //		IPortalComponentProfile layoutProfile = request.getComponentContext().getProfile();
 //		String windowTitle = layoutProfile.getProperty("com.nordzucker.agri.portal.framework.WindowTitle");
 		
@@ -57,6 +59,8 @@ public class FrameworkLayoutComponent extends PageLayout {
 		epResponse.addBodyAttribute("id", "fwk");
 
 		String userAgent = request.getServletRequest().getHeader("User-Agent");
+		
+		
 
 		boolean isGTEIE10 = false;
 		if (userAgent != null && userAgent.matches("^.*MSIE \\d\\d\\.\\d+.*$")) {
@@ -134,6 +138,7 @@ public class FrameworkLayoutComponent extends PageLayout {
 		if (updateAOBUserUrl == null) {
 			updateAOBUserUrl = "";
 		}
+		
 		epResponse.defer(HtmlFactory.createInlineScript("var FWK = {" +
 //				"place:'" + StringUtils.escapeToJS(place) + "'," +
 //				"placeName:'" + StringUtils.escapeToJS(placeName) + "'" +
@@ -142,6 +147,20 @@ public class FrameworkLayoutComponent extends PageLayout {
 				"portalPath:'" + cfg.getPortalPath() + "'," +
 				"updateAOBUserUrl:'" + updateAOBUserUrl.replaceAll("#LANG#", lang) + "'," +
 				"isDebug:" + cfg.isDebug() +
+				"ip:" +request.getServletRequest().getRemoteAddr().toString() +
+				"nav:" +cfg.getSelectedNode().getTitle(cfg.getLocale()) +
+				"navUrl:" +request.getParameter("NavigationTarget") +
+				"headlineText:" + rb.getString("info.headline") + 
+				"browserText:" + rb.getString("info.browser") + 
+				"browserVersionText:" + rb.getString("info.browserVersion") + 
+				"osText:" + rb.getString("info.os") + 
+				"userText:" + rb.getString("info.user") + 
+				"navText:" + rb.getString("info.nav") + 
+				"ipText:" + rb.getString("info.ip") + 
+				"bandwidthText:" + rb.getString("info.bandwidth") + 
+				"mimesPath:" + request.getWebResourcePath() + 
+				
+				
 			"};", null));
 		
 		if (cfg.isDebug()) {

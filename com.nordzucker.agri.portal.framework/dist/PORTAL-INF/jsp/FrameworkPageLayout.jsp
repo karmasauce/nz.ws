@@ -66,6 +66,24 @@ rssUrl = httpHost + rssUrl.replaceAll("#LANG#", lang);
 
 long startTime = System.currentTimeMillis();
 long stopTime = startTime;
+
+//get ip from user
+String ip = request.getHeader("X-Forwarded-For");  
+if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+  ip = request.getHeader("Proxy-Client-IP");  
+}  
+if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+  ip = request.getHeader("WL-Proxy-Client-IP");  
+}  
+if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+  ip = request.getHeader("HTTP_CLIENT_IP");  
+}  
+if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+  ip = request.getHeader("HTTP_X_FORWARDED_FOR");  
+}  
+if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+  ip = request.getRemoteAddr();  
+}  
 %>
 <div id="wrap"><div class="inner">
 
@@ -332,11 +350,19 @@ if (rssUrl != null && !rssUrl.equals("")) {
 			%>
 		</ul>
 	</nav>
+	<nav id="footerInfo">
+		<h3>Browserinfo</h3>
+		<ul>
+			<!--Content from NZ-->
+			<li><a href="#" id="browserData">"<%=str(rb,"info.whatbrowserdoihave")%>"</a></li>
+		</ul>
+	</nav>
+	<!-- 
 	<form id="footerSearch" class="searchForm" role="search" data-dynamic="<%=dynamic%>">
 		<h3><%=str(rb,"headline.search")%></h3>
 		<input id="footerSearchTerm" name="term" class="term" placeholder="<%=str(rb,"placeholder.search")%>">
 		<button class="button"><%=str(rb,"button.search")%></button>
-	</form>
+	</form> -->
 	<section id="footerCopyright">
 <%= HTMLFragmentFromKM.getHTMLFragment(baseRID + "/footerCopyright.html", locale, portalPath) %>
 	</section>

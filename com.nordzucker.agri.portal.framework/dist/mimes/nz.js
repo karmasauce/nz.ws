@@ -711,86 +711,148 @@ function nordzucker(window, document, $, FWK, RB) {
 		// 	return false
 		// })
 
+	
+$('#browserData').click(function(){
+	 //calculate bandwidth	
+		var imageAddr = FWK.mimesPath + "/speed_test.jpg" + "?n=" + Math.random();
+		var startTime, endTime, speed;
+		var downloadSize = 371386;
+		var download = new Image();
+	
+		//get startdate
+		startTime = (new Date()).getTime();
+	
+		//start download
+		download.src = imageAddr;
+		download.onload = function () {
+			//get end time of download
+		    endTime = (new Date()).getTime();
+		    //calculate mbps
+		    getResults(startTime, endTime, downloadSize);
+		};
+});
+
+
+	
+	function getResults(startTime, endTime, downloadSize) {
+		var duration = (endTime - startTime) / 1000;
+	    var bitsLoaded = downloadSize * 8;
+	    var speedBps = (bitsLoaded / duration).toFixed(2);
+	    var speedKbps = (speedBps / 1024).toFixed(2);
+	    var speedMbps = (speedKbps / 1024).toFixed(2);
+
+
+	  //get user data
+		var data = {};
+		data.browser 		 = getBrowser();
+		data.browserVersion  = getBrowserVersion();
+		data.operatingSystem = getOperatingSystem();
+		data.bandwidth		 = speedMbps;
+		data.ip				 = FWK.ip;
+		data.userId			 = FWK.user;
+		data.nav 			 = FWK.nav;
+		data.time			 = new Date();
+		data.portalPath	     = FWK.portalPath;
+		data.navUrl		 	 = FWK.navUrl;
+		data.domain			 = location.host;
+
+		var text = 'Timestamp: '+ data.time + 
+		      '\n\n'+FWK.browserText+' :\t\t\t' + data.browser +
+			  '\n'+FWK.browserVersionText+' :\t' + data.browserVersion +
+			  '\n'+FWK.osText+' : \t \t' + data.operatingSystem +
+			  '\n'+FWK.userText+' :\t\t\t' + data.userId +
+			  '\n'+FWK.navText+': \t\t' + data.navUrl +
+			  '\n'+FWK.ipText+' :\t\t\t'+ data.ip +
+			  '\n'+FWK.bandwidthText+' :\t\t\t'+ data.bandwidth + ' Mbps';
+		
+		//check if user is registered
+		if(data.userId != "Guest"){
+
+			//With Email Function
+			var c = confirm(FWK.headlineText+
+					  '\n\n'+FWK.browserText+' :\t\t\t' + data.browser +
+					  '\n'+FWK.browserVersionText+' :\t' + data.browserVersion +
+					  '\n'+FWK.osText+' : \t \t' + data.operatingSystem +
+					  '\n'+FWK.userText+' :\t\t\t' + data.userId +
+			 		 '\n'+FWK.navText+': \t\t' + data.navUrl +
+			 		 '\n'+FWK.ipText+' :\t\t\t'+ data.ip +
+			 		 '\n'+FWK.bandwidthText+' :\t\t\t'+ data.bandwidth + ' Mbps');
+					  
+			//IF Ok Button clicked: Call Support Service
+			if(c == true){
+				var url = location.protocol + "//"+ location.host + "/nordzucker.com~common~connector~service/api/support?_" + new Date().getTime();
+				$.ajax({
+				    "url": url,
+				    "type": "POST",
+				    "data": {"text":text, "domain":data.domain},
+					/*
+				    "success": function(){
+						//alert("Succes!");
+				    },
+				    */
+				    "error": function(XMLHttpRequest){
+				    	alert(XMLHttpRequest.status +": "+ XMLHttpRequest.statusText);
+				    }
+				});
+			}
+
+			//Without email function
+			/*
+			alert(FWK.browserText+' :\t\t\t' + data.browser +
+				  '\n<%=str(rb,"info.browserVersion")%> :\t' + data.browserVersion +
+				  '\n<%=str(rb,"info.os")%> : \t\t' + data.operatingSystem +
+				  '\n<%=str(rb,"info.user")%> :\t\t\t' + data.userId +
+				  '\n<%=str(rb,"info.nav")%> : \t\t' + data.navUrl +
+				  '\n<%=str(rb,"info.ip")%> :\t\t\t'+ data.ip +
+				  '\n<%=str(rb,"info.bandwidth")%> :\t\t\t'+ data.bandwidth + ' Mbps');
+			*/
+			
+		}
+		else{
+			alert(FWK.browserText+' :\t\t\t' + data.browser +
+			  '\n'+FWK.browserVersionText+' :\t' + data.browserVersion +
+			  '\n'+FWK.osText+' : \t \t' + data.operatingSystem +
+			  '\n'+FWK.userText+' :\t\t\t' + data.userId +
+			  '\n'+FWK.navText+': \t\t' + data.navUrl +
+			  '\n'+FWK.ipText+' :\t\t\t'+ data.ip +
+			  '\n'+FWK.bandwidthText+' :\t\t\t'+ data.bandwidth + ' Mbps');
+		}
+	}
+	
+	function getBrowser(){
+	    var N=navigator.appName, ua=navigator.userAgent, tem;
+	    var M=ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
+	    if(M && (tem= ua.match(/version\/([\.\d]+)/i))!= null) M[2]= tem[1];
+	    M=M? [M[1], M[2]]: [N, navigator.appVersion, '-?'];
+	    return M[0];
+	}
+	
+	function getBrowserVersion(){
+	    var N=navigator.appName, ua=navigator.userAgent, tem;
+	    var M=ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
+	    if(M && (tem= ua.match(/version\/([\.\d]+)/i))!= null) M[2]= tem[1];
+	    M=M? [M[1], M[2]]: [N, navigator.appVersion, '-?'];
+	    return M[1];
+	}
+	
+	function getOperatingSystem(){
+		var osName="unknown OS";
+		if (navigator.appVersion.indexOf("Win")!=-1) osName="Windows";
+		if (navigator.appVersion.indexOf("Mac")!=-1) osName="MacOS";
+		if (navigator.appVersion.indexOf("X11")!=-1) osName="UNIX";
+		if (navigator.appVersion.indexOf("Linux")!=-1) osName="Linux";
+		return osName;
+	}
 
 
 
 		/**
 		 * LOGOUT
 		 */
-		;(function _LOGOUT() {
-			var isLogoffFinalAllowed = true
-			  , logoffStartTime = +new Date
-			  , silent
-			  , externalUrl
-			  , logoffURLComponent
-
-			  , logoff = function _logoff() {
-					window.EPCM && EPCM.raiseEvent('urn:com.sapportals.portal:user', 'logoff', '')
-					logoffStartTime = +new Date
-					setTimeout(logoffDelay, 50)
-				}
-
-			  , logoffDelay = function _logoffDelay() {
-					var isLogoffDelayElapsed = (+new Date) - logoffStartTime > 60*1000
-
-					if (isLogoffFinalAllowed || isLogoffDelayElapsed) {
-						if (typeof CloseAllObj !== 'undefined' && CloseAllObj !== null) {
-							CloseAllObj.logoutFromThisWindow = true
-							CloseAllObj.setFlagValue(CloseAllObj.OUT)
-						}
-						logoffFinalCall()
-					} else {
-						setTimeout(logoffDelay, 50) 
-					}
-				}
-
-			  , logoffFinalCall = function _logoffFinalCall() {
-					logoffThirdParty()
-
-					//set the cookie value to logOff
-					if (typeof CloseAllObj !== 'undefined' && CloseAllObj !== null) {
-						CloseAllObj.logout_from_this_window = true
-						CloseAllObj.setFlagValue(CloseAllObj.OUT)
-					}
-					
-					// disable work protect in the main window 
-					disableWorkProtectCheck = true
-					submitLogoffForm()
-				}
-
-			  , submitLogoffForm = function _submitLogoffForm() {
-					$('<form method="POST" action="' + logoffUrl + '" target="_top" />')
-						.hide()
-						.appendTo(document.body)
-						.submit()
-				}
-
-			  , logoffThirdParty = function _logoffThirdParty() {
-					if (!!externalUrl && externalUrl !== 'null' && silent) {
-						$('<iframe id="externalLogOffIframe" src="' + externalUrl + '" />')
-							.hide()
-							.appendTo(document.body)
-					}
-				}
-
-			$logOut.on('click', function _click(ev) {
-				var $a = $(this)
-
-				logoffUrl = $a.attr('href')
-				externalUrl = $a.data('externalUrl')
-				silent = $a.data('silent') === 'true'
-
-				logoff()
-
-				SESSION.removeAllValues()
-				sap.bpselect.resetBusinessPartner()
-			
-				ev.preventDefault()
-			})
-		})()
-
-
-
+		$logOut.on('click', function _click(ev) {
+			SESSION.removeAllValues()
+			sap.bpselect.resetBusinessPartner()
+		})
 
 		/**
 		 * WEATHER

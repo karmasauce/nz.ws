@@ -136,7 +136,7 @@ public class SearchComponent extends AbstractPortalComponent {
 					SearchQueryListBuilder sqb = new SearchQueryListBuilder();
 					sqb.setSearchTerm(term);
 					
-					// das wäre die Erweiterung an jede TREX Suche noch die Einschränkung nach dem Land.
+					// das w√§re die Erweiterung an jede TREX Suche noch die Einschr√§nkung nach dem Land.
 					sqb.setSelectedSearchAction(SEARCH_PARAM_ACTION_LINGUISTIC);
 					sqb.setSelectedCustomProps(KM_NAMESPACE +":contentlanguage(value=" + request.getLocale().getLanguage() + ")");
 					
